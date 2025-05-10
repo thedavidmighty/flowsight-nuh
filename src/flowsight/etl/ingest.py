@@ -1,15 +1,16 @@
 import pandas as pd
 import logging
 import pathlib
-import os
 import re
+
 
 from flowsight.etl.db import write_to_db
 
+
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
-RAW_DATA_DIR = pathlib.Path("data/raw")
-ae_xls = RAW_DATA_DIR/"ae_march2025.xls"
+RAW_DATA_DIR=pathlib.Path("data/raw")
+ae_xls=RAW_DATA_DIR/"ae_march2025.xls"
 
 
 def to_int(series):
@@ -37,7 +38,7 @@ def main():
     # print("DEBUG - all columns:", list(raw.columns))
     # return
 
-    tidy = (raw.rename(columns=lambda c: re.sub(r"\s+", " ", str(c)).strip())
+    tidy=(raw.rename(columns=lambda c: re.sub(r"\s+", " ", str(c)).strip())
             .loc[:, ["Code", "Region", "Name", "Total Attendances > 4 hours"]]
             .rename(columns = {"Code": "provider_code",
                                "Region": "provider_region",
@@ -46,8 +47,8 @@ def main():
                                }))
     
     # Cleaning the data
-    tidy["breaches"] = to_int(tidy["breaches"])
-    tidy["month"] = pd.to_datetime("2025-03-01")
+    tidy["breaches"]=to_int(tidy["breaches"])
+    tidy["month"]=pd.to_datetime("2025-03-01")
 
 
     logging.info("Rows loaded: %d (sheet = '%s')", len(tidy), sheet)
