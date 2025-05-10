@@ -172,3 +172,10 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# .gitignore (add these lines)
+# virtual-env
+.venv/
+# Jupyter & MLflow artefacts
+*.ipynb_checkpoints
+mlruns/
