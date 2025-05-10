@@ -15,4 +15,4 @@ def write_to_db(df, table_name):
 def read_from_db(sql, params = None):
     """
     read a table from the datebase using sqlalchemy"""
-    return pd.read_sql(sql, ENGINE, params= params or {})
+    return pd.read_sql(sql, ENGINE, params= params)
