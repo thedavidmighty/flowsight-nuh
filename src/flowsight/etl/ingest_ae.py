@@ -32,7 +32,7 @@ def to_int(series):
 
 def main():
     """
-    Maihn function to read the excel file and write it to the database"""
+    Main function to read the excel file and write it to the database"""
 
     x1 = pd.ExcelFile(ae_xls)
     sheet = next(s for s in x1.sheet_names if "provider" in s.lower())
@@ -42,16 +42,20 @@ def main():
     # return
 
     tidy=(raw.rename(columns=lambda c: re.sub(r"\s+", " ", str(c)).strip())
-            .loc[:, ["Code", "Region", "Name", "Total Attendances > 4 hours"]]
-            .rename(columns = {"Code": "provider_code",
-                               "Region": "provider_region",
-                               "Name": "provider_name",
-                               "Total Attendances > 4 hours": "breaches"
+            .loc[:, ['Period', 'Type 1 Departments - Major A&E', 'Type 2 Departments - Single Specialty',
+                      'Type 3 Departments - Other A&E/Minor Injury Unit', 'Total Attendances < 4 hours', 
+                      'Type 1 Departments - Major A&E.1', 'Type 2 Departments - Single Specialty.1', 
+                      'Type 3 Departments - Other A&E/Minor Injury Unit.1', 'Total Attendances > 4 hours', 
+                      'Percentage in 4 hours or less (all)', 'Percentage in 4 hours or less (type 1)', 
+                      'Percentage in 4 hours or less (type 2)', 'Percentage in 4 hours or less (type 3)']]
+            .rename(columns = {"Period": "month",
+                               "Total Attendances > 4 hours": "breaches",
+                               "Total Attendances < 4 hours": "non_breaches"
                                }))
     
     # Cleaning the data
     tidy["breaches"]=to_int(tidy["breaches"])
-    tidy["month"]=pd.to_datetime("2025-03-01")
+    tidy["month"]=pd.to_datetime(tidy["month"], format="%m/%Y", errors="coerce")
 
 
     logging.info("Rows loaded: %d (sheet = '%s')", len(tidy), sheet)
