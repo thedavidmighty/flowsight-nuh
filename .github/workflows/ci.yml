@@ -1,8 +1,30 @@
-- uses: actions/setup-python@v5
-  with:
-    python-version: "3.11"
+name: CI                              # ← workflow label that shows in GitHub UI
 
-- run: |
-    python -m pip install --upgrade pip
-    pip install -r requirements.txt
-    pip install flake8 pytest
+on:                                   # ← triggers
+  push:
+  pull_request:
+
+jobs:
+  lint-test:
+    runs-on: ubuntu-latest            # GitHub-hosted Linux runner
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install flake8 pytest
+
+      - name: Lint with flake8
+        run: flake8 src
+
+      - name: Run tests
+        run: pytest -q
