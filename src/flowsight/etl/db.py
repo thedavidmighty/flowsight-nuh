@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 import pandas as pd
 import os
 PG_URI = os.getenv("PG_URI",
-                   "postgresql+psycopg2://flowsight:flowsight@loaclhost:5432/nuh_staging")
+                   "postgresql+psycopg2://flowsight:flowsight@localhost:5432/nuh_staging")
 
 ENGINE = create_engine(PG_URI, future=True)
 
