@@ -7,10 +7,13 @@ import re
 from flowsight.etl.db import write_to_db
 
 
+
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
 RAW_DATA_DIR=pathlib.Path("data/raw")
 ae_xls=RAW_DATA_DIR/"ae_march2025.xls"
+
+
 
 
 def to_int(series):

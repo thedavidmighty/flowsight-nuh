@@ -2,7 +2,9 @@
 from flowsight.etl.db import read_from_db
 import pandas as pd
 
+
 NUH_CODE = "RWD"
+
 
 def breaches_timeseries(provider: str = NUH_CODE) -> pd.DataFrame:
     sql = """
