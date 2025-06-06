@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NUH Operational Dashboard – Demo</title>
+  <style>
+      body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+      header { background:#004c97; color:#fff; padding:1rem; }
+      h1 { margin:0; font-size:1.5rem; }
+      section { display:flex; flex-wrap:wrap; padding:1rem; gap:1rem; }
+      iframe { border:none; flex:1 1 600px; height:500px; }
+      footer { text-align:center; font-size:0.8rem; padding:0.5rem; color:#666; }
+  </style>
+</head>
+<body>
+  <header><h1>NUH Operational Dashboard (Proof-of-Concept)</h1></header>
+
+  <section>
+    <!-- A&E breaches chart -->
+    <iframe src="ae_breach_forecast.html" title="A&E breaches"></iframe>
+
+    <!-- RTT backlog chart -->
+    <iframe src="rtt_backlog_forecast.html" title="RTT backlog"></iframe>
+  </section>
+
+  <footer>
+    Data sources: NHS England open data &nbsp;|&nbsp; Prepared by <u>Your Name</u>
+  </footer>
+</body>
+</html>
+<!-- This is a simple HTML dashboard layout with two embedded charts -->
+<!-- for A&E breaches and RTT backlog forecasts. The design is responsive and adapts to different screen sizes. -->
