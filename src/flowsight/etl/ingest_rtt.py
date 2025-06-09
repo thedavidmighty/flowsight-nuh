@@ -42,29 +42,24 @@ def main():
     # return
 
     tidy=(raw.rename(columns=lambda c: re.sub(r"\s+", " ", str(c)).strip())
-            .loc[:, ['Region Code', 'Provider Code', 'Provider Name', 'Treatment Function',
-                     'Total number of incomplete pathways', 'Total within 18 weeks', '% within 18 weeks', 
-                     'Average (median) waiting time (in weeks)', '92nd percentile waiting time (in weeks)', 
-                     'Total 52 plus weeks', 'Total 78 plus weeks', 'Total 65 plus weeks'
+            .loc[:, ['month', 'median wait', 'no. < 18 weeks', 'no. > 18 weeks',
+                     'no. > 52 weeks', 'no. > 65 weeks', 'no. > 78 weeks', 
+                     'no. > 104 weeks', 'total waiting (mil)'
                      ]]
-                     .rename(columns = {"Provider Code": "provider_code",
-                               "Region": "provider_region",
-                               "Region Code": "region_code",
-                               "Provider Name": "provider_name",
-                               "Treatment Function": "treatment_function",
-                               "Total number of incomplete pathways": "incomplete_pathways",
-                               "Total within 18 weeks": "within_18_weeks",
-                               "% within 18 weeks": "within_18_weeks_percent",
-                               "Average (median) waiting time (in weeks)": "average_waiting_time",
-                               "92nd percentile waiting time (in weeks)": "percentile_waiting_time",
-                               "Total 52 plus weeks": "52_plus_weeks",
-                               "Total 78 plus weeks": "78_plus_weeks",
-                               "Total 65 plus weeks": "65_plus_weeks",
+                     .rename(columns = {"month": "month",
+                               "median wait": "average_waiting_time",
+                               "no. < 18 weeks": "within_18_weeks",
+                               "no. > 18 weeks": "beyond_18_weeks",
+                               "no. > 52 weeks": "52_plus_weeks",
+                               "no. > 65 weeks": "65_plus_weeks",
+                               "no. > 78 weeks": "78_plus_weeks",
+                               "no. > 104 weeks": "104_plus_weeks",
+                               "total waiting (mil)": "incomplete_pathways"
                                }))
     
     # Cleaning the data
     tidy["incomplete_pathways"]=to_int(tidy["incomplete_pathways"])
-    tidy["month"]=pd.to_datetime("2025-03-01")
+    tidy["month"]=pd.to_datetime(tidy["month"], format="%m/%Y", errors="coerce")
 
 
     logging.info("RTT rows loaded: %d  (sheet = '%s')", len(tidy), sheet)

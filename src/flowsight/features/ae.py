@@ -9,7 +9,7 @@ import pandas as pd
 def breaches_timeseries() -> pd.DataFrame:
     sql = """
         SELECT month::date AS date,
-                breaches    AS breaches
+                breaches    AS breaches,
                 non_breaches AS non_breaches
         FROM   ae
         ORDER  BY month

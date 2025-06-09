@@ -55,6 +55,7 @@ def main():
     
     # Cleaning the data
     tidy["breaches"]=to_int(tidy["breaches"])
+    tidy["non_breaches"]=to_int(tidy["non_breaches"])
     tidy["month"]=pd.to_datetime(tidy["month"], format="%m/%Y", errors="coerce")
 
 
